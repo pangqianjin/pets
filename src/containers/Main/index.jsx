@@ -1,0 +1,62 @@
+import React, { Component } from 'react'
+import {Typography, Divider, BackTop } from 'antd'
+import Pubsub from 'pubsub-js'
+
+const {Paragraph, Text} = Typography
+const pettypes = {0:'猫科', 1:'犬科', 2:'爬行类', 3:'小宠物类', 4:'水族类'}
+export default class Main extends Component {
+    state = {
+        newslist: []
+    }
+
+    componentDidMount(){
+        Pubsub.subscribe('result', (_, newslist)=>{
+            this.setState({newslist})
+        })
+    }
+
+    componentWillUnmount(){
+        Pubsub.unsubscribe('result')
+    }
+
+    render() {
+        const {newslist} = this.state
+        return (
+            <div>
+                <BackTop />
+                {
+                newslist.map(news=>{
+                    const {pettype, name, engName,
+                        characters, nation, easyOfDisease,
+                        life, price, desc, feature, characterFeature,
+                        careKnowledge, feedPoints, url, coverURL
+                        } = news
+                    return <Typography key={url}>
+                        <a style={{float: 'right'}} href={url}>
+                        <img src={coverURL} alt={name} style={{width:'200px', height:'150px'}} />
+                        </a>
+                        <Paragraph> 
+                            <ul>
+                                <li><Text strong>宠物类型: </Text> {pettypes[pettype]}</li>
+                                <li><Text strong>宠物名字: </Text> {name}</li>
+                                <li><Text strong>宠物英文名: </Text> {engName}</li>
+                                <li><Text strong>性格特点: </Text> {characters}</li>
+                                <li><Text strong>祖籍: </Text> {nation}</li>
+                                <li><Text strong>易患病: </Text> {easyOfDisease}</li>
+                                <li><Text strong>寿命: </Text> {life}</li>
+                                <li><Text strong>价格: </Text> {price?price:'未知'}</li>
+                            </ul>
+                        </Paragraph>
+                        <Paragraph><Text strong>描述: </Text>{desc}</Paragraph>
+                        <Paragraph><Text strong>体态特征: </Text>{feature}</Paragraph>
+                        <Paragraph><Text strong>特点: </Text>{characterFeature}</Paragraph>
+                        <Paragraph><Text strong>照顾须知: </Text>{careKnowledge}</Paragraph>
+                        <Paragraph><Text strong>喂养注意: </Text>{feedPoints}</Paragraph>
+                        <Divider/> 
+                    </Typography>
+                    })
+                }
+            </div>
+        )
+    }
+}
