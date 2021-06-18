@@ -1,5 +1,17 @@
 ## pets
-基于react, axios, antd, pubsub-js, react-router-dom的SPA，能够获得宠物的信息
+基于react, axios, antd, pubsub-js, react-router-dom的SPA，能够通过搜索关键字和点击分类来获得相关宠物的信息
+## 运行方式
+- 首先clone本仓库到本地：git clone https://github.com/pangqianjin/pets.git
+- 然后进入目录,并执行以下命令
+  - yarn install
+- 然后可以在开发环境中运行
+  - yarn start
+  - 打开浏览器 localhost:3000
+- 或者打包后运行
+  - yarn build
+  - npm install -g serve
+  - serve -S build
+  - 打开浏览器 localhost:5000
 ### 整体布局
 ![image](https://user-images.githubusercontent.com/49555245/122512597-abdd7f80-d03b-11eb-9761-efbcb742a1c6.png)
 ### 通过关键字搜索
