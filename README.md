@@ -1,5 +1,5 @@
 ## pets
-基于react, axios, antd, pubsub-js, react-router-dom的SPA，能够通过搜索关键字和点击分类来获得相关宠物的信息
+基于react, axios, antd, pubsub-js, react-router-dom的SPA，能够通过搜索关键字和点击分类来获得相关宠物的信息，包含猫咪、犬类、爬行动物、小动物、水族类等宠物的生活习性、喂养方法、价格、祖籍、体态特点和图片等信息。
 ## 运行方式
 - 首先clone本仓库到本地：git clone https://github.com/pangqianjin/pets.git
 - 然后进入目录,并执行以下命令
@@ -18,8 +18,9 @@
 ![image](https://user-images.githubusercontent.com/49555245/122512643-bdbf2280-d03b-11eb-8c61-ac409ed9a0c4.png)
 ### 通过导航栏选择
 ![image](https://user-images.githubusercontent.com/49555245/122513782-789bf000-d03d-11eb-943b-66cd991ca09a.png)
-### 滑动到底部显示 “返回顶部按钮”
-![image](https://user-images.githubusercontent.com/49555245/122513934-a7b26180-d03d-11eb-94a4-877584111c27.png)
+### 滑动到底部显示 “返回顶部按钮”和“分页器”
+![image](https://user-images.githubusercontent.com/49555245/122627727-f0245a80-d0e3-11eb-8da8-f19236aff34c.png)
+
 ### 左侧导航栏可折叠
 ![image](https://user-images.githubusercontent.com/49555245/122514001-bdc02200-d03d-11eb-932b-899a82300257.png)
 
