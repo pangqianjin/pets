@@ -36,6 +36,7 @@ export default class Main extends Component {
 
     render() {
         const {newslist} = this.state 
+        const displayPagination = newslist.length===0||newslist.length===1?'none':'block'
 
         return (
             <div>
@@ -73,6 +74,7 @@ export default class Main extends Component {
                     })
                 }
                 <Pagination hideOnSinglePage pageSize={5}
+                    style={{display:displayPagination}}
                     total={50} current={this.state.current}
                     onChange={this.onPageChange}/>
             </div>
