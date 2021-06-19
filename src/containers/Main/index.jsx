@@ -13,6 +13,11 @@ export default class Main extends Component {
     }
 
     componentDidMount(){
+        // 从sessionStorage中读取缓存
+        let newslist = window.sessionStorage.getItem('newslist')
+        if(newslist!==undefined && newslist!==null)
+            this.setState({newslist: JSON.parse(newslist)})
+
         Pubsub.subscribe('result', (_, newslist)=>{
             this.setState({newslist})
         })

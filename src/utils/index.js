@@ -22,5 +22,7 @@ export const showResult = (data)=>{
       showFeedback(data.msg)
     }else{
       PubSub.publish('result', data.newslist)
+      // 将data.newslist缓存到sessionStorage中
+      window.sessionStorage.setItem('newslist', JSON.stringify(data.newslist))
     }
   }
