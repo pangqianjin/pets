@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import {Typography, Divider, BackTop } from 'antd'
+import {Typography, Divider, BackTop, Pagination} from 'antd'
 import Pubsub from 'pubsub-js'
+import {reqPets, showResult, showFeedback} from '../../utils'
 
 const {Paragraph, Text} = Typography
 const pettypes = {0:'猫科', 1:'犬科', 2:'爬行类', 3:'小宠物类', 4:'水族类'}
 export default class Main extends Component {
     state = {
-        newslist: []
+        newslist: [],
+        current: 1,
+        type: 0
     }
 
     componentDidMount(){
@@ -19,8 +22,21 @@ export default class Main extends Component {
         Pubsub.unsubscribe('result')
     }
 
+    onPageChange = (page)=>{
+        this.setState({current: page})
+        const type = this.state.newslist[0].pettype
+        const promise = reqPets({type, page})
+        promise.then(response=>{
+            this.props.history.push(`/pettypes/?type=${type}&page=${page}`)
+            showResult(response.data)
+        }).catch(err=>{
+            showFeedback(err)
+        })
+    }
+
     render() {
-        const {newslist} = this.state
+        const {newslist} = this.state 
+
         return (
             <div>
                 <BackTop />
@@ -56,6 +72,9 @@ export default class Main extends Component {
                     </Typography>
                     })
                 }
+                <Pagination hideOnSinglePage pageSize={5}
+                    total={50} current={this.state.current}
+                    onChange={this.onPageChange}/>
             </div>
         )
     }

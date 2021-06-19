@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import Main from './containers/Main';
 import {Input, Layout, Menu } from 'antd'
-import PubSub from 'pubsub-js'
 import {QqOutlined,GithubOutlined,
   GitlabOutlined,AliwangwangOutlined,
   BugOutlined,RedditOutlined
 } from '@ant-design/icons'
-import { reqPets, showFeedback} from './utils';
+import { reqPets, showFeedback, showResult} from './utils';
 import {Switch, Route, withRouter} from 'react-router-dom'
 
 const {Header, Content, Sider} = Layout
 class App extends Component {
   state = {
     value: '',
-    data: {},
     collapsed: false
   }
 
@@ -29,9 +27,8 @@ class App extends Component {
   onSearch=(value)=>{
     const promise = reqPets({name: value})
     promise.then(response=>{
-      this.setState({data:response.data})
       this.props.history.replace(`/?name=${value}`)
-      this.showResult()
+      showResult(response.data)
     }).catch(err=>{
       showFeedback(err)
     })
@@ -42,22 +39,13 @@ class App extends Component {
     
     const promise = reqPets({type: node.key})
     promise.then(response=>{
-      this.setState({data:response.data})
       this.props.history.push(`/pettypes/?type=${node.key}`)
-      this.showResult()
+      showResult(response.data)
     }).catch(err=>{
       showFeedback(err)
     })
   }
 
-  showResult = ()=>{
-    const {data} = this.state
-    if(data.code!==200){
-      showFeedback(data.msg)
-    }else{
-      PubSub.publish('result', data.newslist)
-    }   
-  }
 
   render() {
     const {collapsed} = this.state

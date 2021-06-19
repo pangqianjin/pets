@@ -1,5 +1,6 @@
 import axios from "axios";
 import {notification} from 'antd'
+import PubSub from 'pubsub-js'
 
 export const reqPets = (dataObj)=>axios({
     method: 'POST',
@@ -13,5 +14,13 @@ export const reqPets = (dataObj)=>axios({
 export const showFeedback = (msg)=>notification.open({
         message: '温馨提示',
         description: msg,
-        duration: 1
+        duration: 3
 })
+
+export const showResult = (data)=>{
+    if(data.code!==200){
+      showFeedback(data.msg)
+    }else{
+      PubSub.publish('result', data.newslist)
+    }
+  }
